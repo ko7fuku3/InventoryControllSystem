@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"></link>
+<title>在庫管理　ログイン</title>
+</head>
+<body>
+	<article id="login">
+    
+    <form method="post" action="/">
+    	<p th:text="${userMsg}">please wait...</p>
+        <input type="text" name="name" th:value="${value}" />
+        <p th:text="${passwordMsg}"></p>
+        <input type="password" name="password" th:value="${value}" />
+        <input type="submit" value="ログイン" />
+    </form>
+    </article>
+</body>
+</html>
