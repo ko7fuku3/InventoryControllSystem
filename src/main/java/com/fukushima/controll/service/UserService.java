@@ -13,9 +13,8 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	public List<User> serch() {
+	public List<User> serchUser(String userName) {
 		
-		List<User> user = userRepository.findAll();
-		return user;
+		return userRepository.findUser(userName);
 	}
 }

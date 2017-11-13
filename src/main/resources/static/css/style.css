@@ -37,9 +37,10 @@ input {
 	margin-top: 20px;
 }
 
-#btn {
+.btn {
 	text-align: right;
 	margin-top: 20px;
 	margin-left: 135px;
 	height: 40px;
 }
+

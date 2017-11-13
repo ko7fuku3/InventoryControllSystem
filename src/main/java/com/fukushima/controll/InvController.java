@@ -2,6 +2,7 @@ package com.fukushima.controll;
 
 import java.util.List;
 
+import org.aspectj.weaver.reflect.InternalUseOnlyPointcutParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,15 +42,38 @@ public class InvController {
 	 * @return
 	 */
     @RequestMapping(value="/", method=RequestMethod.POST)
-    public ModelAndView send(@RequestParam("name")String name,  String password,
-            ModelAndView mav) {
-    	// Userテーブル取得
-		List<User> users = userService.serch();
-		System.out.println(users.get(0).getUserName());
-    	mav.setViewName("Login");
-    	mav.addObject("value",users.get(0).getUserName());
-    	mav.addObject("value2",users.get(0).getPassword());
+    public ModelAndView send(@RequestParam("name")String name,  String password, ModelAndView mav) {
+
+    	String userErroeMsg = null;
+    	String passwordErrorMsg = null;
+    	String viewName = null;
+
+    	//TODO デバック用
+    	mav.setViewName("Menu");
+    	return mav;
     	
-        return mav;
+//    	// Userテーブル取得
+//		List<User> user = userService.serchUser(name);
+//
+//		// ユーザー存在チェック
+//		if (user.isEmpty()) {
+//			userErroeMsg = "ユーザー名が間違っています";
+//			viewName = "Login";
+//		// パスワードと照合
+//    	} else if (!(password.equals(user.get(0).getPassword()))) {
+//    		passwordErrorMsg = "パスワードが間違っています";
+//    		viewName = "Login";
+//		} else {
+//			mav.setViewName("Menu");
+//			return mav;
+//		}
+//
+//		mav.addObject("userMsg",userErroeMsg);
+//		mav.addObject("passwordMsg",passwordErrorMsg);
+//		mav.setViewName(viewName);
+//		mav.addObject("inputUser",name);
+//		mav.addObject("inputPassword", password);
+//
+//		return mav;
     }
 }

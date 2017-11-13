@@ -7,15 +7,15 @@
 </head>
 <body>
 	<article id="login">
-    <form method="post" action="/">
-    	<div id="inputField">
-	    	<p class="inputTitle" th:text="${userMsg}">please aaa...</p>
-	        <input class="textBox" type="text" name="name" th:value="${value}" />
-	        <p class="inputTitle" th:text="${passwordMsg}"></p>
-	        <input class="textBox" type="password" name="password" th:value="${value2}" />
-	        <input id="btn" type="submit" value="ログイン" />
-        </div>
-    </form>
-    </article>
+		<form method="post" action="/">
+			<div id="inputField">
+				<p class="inputTitle" th:text="${userMsg}">please aaa...</p>
+				<input class="textBox" type="text" name="name" th:value="${inputUser}" />
+				<p class="inputTitle" th:text="${passwordMsg}"></p>
+				<input class="textBox" type="password" name="password" th:value="${inputPassword}" />
+				<input class="btn" type="submit" value="ログイン" />
+			</div>
+		</form>
+	</article>
 </body>
 </html>
