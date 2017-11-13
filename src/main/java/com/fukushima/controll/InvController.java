@@ -48,32 +48,28 @@ public class InvController {
     	String passwordErrorMsg = null;
     	String viewName = null;
 
-    	//TODO デバック用
-    	mav.setViewName("Menu");
-    	return mav;
-    	
-//    	// Userテーブル取得
-//		List<User> user = userService.serchUser(name);
-//
-//		// ユーザー存在チェック
-//		if (user.isEmpty()) {
-//			userErroeMsg = "ユーザー名が間違っています";
-//			viewName = "Login";
-//		// パスワードと照合
-//    	} else if (!(password.equals(user.get(0).getPassword()))) {
-//    		passwordErrorMsg = "パスワードが間違っています";
-//    		viewName = "Login";
-//		} else {
-//			mav.setViewName("Menu");
-//			return mav;
-//		}
-//
-//		mav.addObject("userMsg",userErroeMsg);
-//		mav.addObject("passwordMsg",passwordErrorMsg);
-//		mav.setViewName(viewName);
-//		mav.addObject("inputUser",name);
-//		mav.addObject("inputPassword", password);
-//
-//		return mav;
+    	// Userテーブル取得
+		List<User> user = userService.serchUser(name);
+
+		// ユーザー存在チェック
+		if (user.isEmpty()) {
+			userErroeMsg = "ユーザー名が間違っています";
+			viewName = "Login";
+		// パスワードと照合
+    	} else if (!(password.equals(user.get(0).getPassword()))) {
+    		passwordErrorMsg = "パスワードが間違っています";
+    		viewName = "Login";
+		} else {
+			mav.setViewName("Menu");
+			return mav;
+		}
+
+		mav.addObject("userMsg",userErroeMsg);
+		mav.addObject("passwordMsg",passwordErrorMsg);
+		mav.setViewName(viewName);
+		mav.addObject("inputUser",name);
+		mav.addObject("inputPassword", password);
+
+		return mav;
     }
 }
