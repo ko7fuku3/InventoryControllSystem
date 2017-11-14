@@ -44,3 +44,17 @@ input {
 	height: 40px;
 }
 
+#fildMenu {
+	margin-top: 60px;
+	margin-left: 70px;
+}
+
+.btnMenu {
+	width: 70px;
+	height:70px;
+}
+
+.btnMenuRight {
+	margin-left: 20px;
+}
+

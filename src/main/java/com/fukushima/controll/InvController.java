@@ -69,4 +69,30 @@ public class InvController {
 
 		return mav;
 	}
+
+	/**
+	 * 各画面へ遷移
+	 * 
+	 * @param menuValue ボタンの値
+	 * @param mavAction 
+	 * @return 
+	 */
+	@RequestMapping(value="/sendAction", method=RequestMethod.POST)
+	public ModelAndView sendAction(@RequestParam("menu")String menuValue, ModelAndView mavAction) {
+
+		String viewName = null;
+
+		if (menuValue.equals("一覧")) {
+			viewName = "Select";
+		} else if (menuValue.equals("登録")) {
+			viewName = "Insert";
+		} else if (menuValue.equals("更新")) {
+			viewName = "Update";
+		} else {
+			viewName = "Delete";
+		}
+
+		mavAction.setViewName(viewName);
+		return mavAction;
+	}
 }
