@@ -7,13 +7,18 @@
 </head>
 <body>
 	<article id="login">
-		<form method="post" action="/">
-			
-			<input class="btnMenu" type="submit" value="一覧" />
-			<input class="btnMenu" type="submit" value="登録" />
-			<br/>
-			<input class="btnMenu" type="submit" value="更新" />
-			<input class="btnMenu" type="submit" value="削除" />
+		<form method="post" action="sendAction">
+			<div id="fildMenu">
+				<div id="btnTop">
+					<input class="btnMenu" type="submit" name="menu" value="一覧" />
+					<input class="btnMenu btnMenuRight" type="submit" name="menu" value="登録" />
+				</div>
+				<br/>
+				<div id="btnBottom">
+					<input class="btnMenu" type="submit" name="menu" value="更新" />
+					<input class="btnMenu btnMenuRight" type="submit" name="menu" value="削除" />
+				</div>
+			</div>
 		</form>
 	</article>
 </body>
