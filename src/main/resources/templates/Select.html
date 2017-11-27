@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"></link>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+	$(document).ready(function() {
+	});
+/*]]>*/
+</script>
+<title>在庫管理　在庫一覧</title>
+</head>
+<body>
+	<article id="select">
+		<div id="selectForm">
+		<form method="post" action="/backMenu">
+			<div class="titleHeader">
+				<h1 >在庫一覧</h1>
+			</div>
+			<div class="btnHeader">
+				<input class="btnBack" type="submit" name="back" value="戻る" />
+			</div>
+			<div >
+				<table>
+					<thead class="scrollHead">
+						<tr>
+							<th class="productNum">商品番号</th>
+							<th class="productName">商品名</th>
+							<th class="unitPrice">単価</th>
+							<th class="stockQuantit">在庫数量</th>
+							<th class="totalAmount">総額</th>
+							<th style="width:14px"></th>
+						</tr>
+					</thead>
+					<tbody class="scrollBody">
+						<tr th:each="list : ${productListDto}" th:object="${list}">
+							<td class="productNum" id="productNumLbl" th:text="*{productNum}">商品番号</td>
+							<td class="productName" th:text="*{productName}">商品名</td>
+							<td class="unitPrice" id="unitPriceLbl" th:text="*{unitPrice}">単価</td>
+							<td class="stockQuantit" id="stockQuantitLbl" th:text="*{stockQuantit}">在庫数量</td>
+							<td class="totalAmount" id="totalAmountLbl" th:text="*{totalAmount}">総額</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
+		</div>
+	</article>
+</body>
+</html>
