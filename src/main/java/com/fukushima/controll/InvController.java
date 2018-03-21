@@ -1,5 +1,7 @@
 package com.fukushima.controll;
 
+import static org.mockito.Matchers.anyList;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +44,7 @@ public class InvController {
 	 * @return
 	 */
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ModelAndView send(@RequestParam("name")String name,  String password, ModelAndView mav) {
+	public ModelAndView send(@RequestParam String name,  String password, ModelAndView mav) {
 
 		String userErroeMsg = null;
 		String passwordErrorMsg = null;
@@ -115,10 +117,53 @@ public class InvController {
 		mavAction.setViewName(viewName);
 		return mavAction;
 	}
-	
+
+	/**
+	 * 
+	 * @param menuValue
+	 * @param mavBack
+	 * @return
+	 */
 	@RequestMapping(value="/backMenu", method=RequestMethod.POST)
 	public ModelAndView backMenu(@RequestParam("back")String menuValue, ModelAndView mavBack) {
 		mavBack.setViewName("Menu");
 		return mavBack;
+	}
+
+	/**
+	 * 
+	 * @param productNum
+	 * @param productName
+	 * @param unitPrice
+	 * @param stockQuantit
+	 * @param mavInsert
+	 * @return
+	 */
+	@RequestMapping(value="/insert", method=RequestMethod.POST)
+	public ModelAndView insertProduct(@RequestParam String productNum, String productName,
+			String unitPrice, String stockQuantit, ModelAndView mavInsert) {
+		ProductList list = new ProductList();
+
+		// 商品番号を設定
+		list.setProductNum(productNum);
+
+		// 商品名を設定
+		list.setProductName(productName);
+
+		// 単価を設定
+		int iUnitPrice = Integer.parseInt(unitPrice);
+		list.setUnitPrice(iUnitPrice);
+
+		// 在庫数量を設定
+		int iStockQuantit = Integer.parseInt(stockQuantit);
+		list.setStockQuantit(iStockQuantit);
+		
+		// 商品マスタ登録
+		service.saveProduct(list.getProductNum(), list.getProductName(), list.getUnitPrice());
+
+		// 商品在庫登録
+		service.saveStockProduct(list.getProductNum(), list.getStockQuantit());
+
+		return mavInsert;
 	}
 }

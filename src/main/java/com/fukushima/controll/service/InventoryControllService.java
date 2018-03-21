@@ -38,4 +38,18 @@ public class InventoryControllService {
 	public List<ProductList> serchAllProduct() {
 		return productListRepository.findAllProduct();
 	}
+	
+	/**
+	 * 商品マスタ登録
+	 * @param productNum 商品番号
+	 * @param productName 商品名
+	 * @param unit_price 単価
+	 */
+	public void saveProduct(String productNum, String productName, int unit_price) {
+		productListRepository.saveProductMst(productNum, productName, unit_price);
+	}
+
+	public void saveStockProduct(String productNum, int stock_quantit) {
+		productListRepository.saveStockProduct(productNum, stock_quantit);
+	}
 }

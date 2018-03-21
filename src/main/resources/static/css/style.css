@@ -22,6 +22,16 @@ input {
 	background-color: #ffffff;
 }
 
+#insert {
+	margin: auto;
+	margin-top: 100px;
+	width: 300px;
+	height: 350px;
+	border: solid 1px;
+	background-color: #ffffff;
+	padding-left: 100px;
+}
+
 #select {
 	margin: auto;
 	margin-top: 20px;
