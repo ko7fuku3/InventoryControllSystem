@@ -5,9 +5,18 @@
 <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"></link>
 <title>在庫管理　登録</title></head>
 <body>
-	<article id="login">
-		<form method="post" action="/">
-		<p>登録画面</p>
+	<article id="insert">
+		<form method="post" action="/insert">
+			<p>登録画面</p>
+			<p>商品番号</p>
+			<input class="textBox" type="text" name="productNum" />
+			<p>商品名</p>
+			<input class="textBox" type="text" name="productName" />
+			<p>商品単価</p>
+			<input class="textBox" type="text" name="unitPrice" />
+			<p>在庫数量</p>
+			<input class="textBox" type="text" name="stockQuantit" />
+			<input class="btn" type="submit" value="登録" />
 		</form>
 	</article>
 </body>
