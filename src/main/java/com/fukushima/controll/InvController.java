@@ -42,7 +42,7 @@ public class InvController {
 	 * @return
 	 */
 	@RequestMapping(value="/", method=RequestMethod.POST)
-	public ModelAndView send(@RequestParam("name")String name,  String password, ModelAndView mav) {
+	public ModelAndView send(@RequestParam String name,  String password, ModelAndView mav) {
 
 		String userErroeMsg = null;
 		String passwordErrorMsg = null;
@@ -115,10 +115,114 @@ public class InvController {
 		mavAction.setViewName(viewName);
 		return mavAction;
 	}
-	
+
+	/**
+	 * 
+	 * @param menuValue
+	 * @param mavBack
+	 * @return
+	 */
 	@RequestMapping(value="/backMenu", method=RequestMethod.POST)
 	public ModelAndView backMenu(@RequestParam("back")String menuValue, ModelAndView mavBack) {
 		mavBack.setViewName("Menu");
 		return mavBack;
 	}
+
+	/**
+	 * 
+	 * @param productNum
+	 * @param productName
+	 * @param unitPrice
+	 * @param stockQuantit
+	 * @param mavInsert
+	 * @return
+	 */
+	@RequestMapping(value="/insert", method=RequestMethod.POST)
+	public ModelAndView insertProduct(@RequestParam String productNum, String productName,
+			String unitPrice, String stockQuantit, ModelAndView mavInsert, String back,
+			String insert) {
+		ProductList list = new ProductList();
+		
+		if (null != back && !back.isEmpty()) {
+			mavInsert = backMenu(back, mavInsert);
+			return mavInsert;
+		}
+
+		// 商品番号を設定
+		list.setProductNum(productNum);
+
+		// 商品名を設定
+		list.setProductName(productName);
+
+		// 単価を設定
+		int iUnitPrice = Integer.parseInt(unitPrice);
+		list.setUnitPrice(iUnitPrice);
+
+		// 在庫数量を設定
+		int iStockQuantit = Integer.parseInt(stockQuantit);
+		list.setStockQuantit(iStockQuantit);
+		
+		// 商品マスタ登録
+		service.saveProduct(list.getProductNum(), list.getProductName(), list.getUnitPrice());
+
+		// 商品在庫登録
+		service.saveStockProduct(list.getProductNum(), list.getStockQuantit());
+
+		return mavInsert;
+	}
+
+	/**
+	 * 商品検索処理
+	 * @param back
+	 * @param select
+	 * @param mavSelect
+	 * @return 
+	 */
+	@RequestMapping(value="/selectProduct", method=RequestMethod.POST)
+	public ModelAndView selectProduct(@RequestParam String productNum, String back,
+			String select, ModelAndView mavSelect) {
+
+		// メイン画面へ戻る
+		if (null != back && !back.isEmpty()) {
+			mavSelect.setViewName("Menu");
+			return mavSelect;
+		}
+
+		// 商品番号で商品検索
+		ProductList productList = service.selectProduct(productNum);
+		mavSelect.setViewName("UpdateData");
+		mavSelect.addObject("productDto",productList);
+		return mavSelect;
+	}
+	
+	/**
+	 * 更新処理
+	 * @param unitPrice
+	 * @param stockQuantit
+	 * @param back
+	 * @param update
+	 * @param mavUpdate
+	 * @return
+	 */
+	@RequestMapping(value="/updateProduct", method=RequestMethod.POST)
+	public ModelAndView updateProduct(@RequestParam String unitPrice,
+			String stockQuantit, String productNum, String back, String update, ModelAndView mavUpdate) {
+
+		System.out.println(productNum);
+		
+		// メイン画面へ戻る
+		if (null != back && !back.isEmpty()) {
+			mavUpdate.setViewName("Menu");
+			return mavUpdate;
+		}
+
+		// 更新処理
+		service.updateProductService(productNum, unitPrice, stockQuantit);
+		
+		// 一覧画面へ遷移
+		mavUpdate = sendAction("一覧", mavUpdate);
+		return mavUpdate;
+		
+	}
+
 }
