@@ -3,10 +3,21 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link href="/css/style.css" th:href="@{/css/style.css}" rel="stylesheet"></link>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" th:inline="javascript">
+/*<![CDATA[*/
+	$(document).ready(function() {
+	});
+	
+	$(#backBtn).click(function() {
+		alert("戻るボタンが押下されたよ");
+	})
+/*]]>*/
+</script>
 <title>在庫管理　登録</title></head>
 <body>
 	<article id="insert">
-		<form method="post" action="/insert">
+		<form method="post" action="/">
 			<p>登録画面</p>
 			<p>商品番号</p>
 			<input class="textBox" type="text" name="productNum" />
@@ -16,7 +27,10 @@
 			<input class="textBox" type="text" name="unitPrice" />
 			<p>在庫数量</p>
 			<input class="textBox" type="text" name="stockQuantit" />
-			<input class="btn" type="submit" value="登録" />
+			<div class="lineBtn">
+				<input type="submit" id="backBtn" name="back" value="戻る" />
+				<input type="submit" id="insertBtn" name="insert" value="登録" />
+			</div>
 		</form>
 	</article>
 </body>

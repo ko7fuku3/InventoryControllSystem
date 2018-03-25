@@ -7,6 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * ユーザーのentity
+ * @author koshiro
+ *
+ */
 @Entity
 @Table(name="user")
 public class User implements Serializable{

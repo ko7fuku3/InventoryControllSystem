@@ -1,7 +1,5 @@
 package com.fukushima.controll;
 
-import static org.mockito.Matchers.anyList;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,8 +139,14 @@ public class InvController {
 	 */
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public ModelAndView insertProduct(@RequestParam String productNum, String productName,
-			String unitPrice, String stockQuantit, ModelAndView mavInsert) {
+			String unitPrice, String stockQuantit, ModelAndView mavInsert, String back,
+			String insert) {
 		ProductList list = new ProductList();
+		
+		if (null != back && !back.isEmpty()) {
+			mavInsert = backMenu(back, mavInsert);
+			return mavInsert;
+		}
 
 		// 商品番号を設定
 		list.setProductNum(productNum);
@@ -166,4 +170,59 @@ public class InvController {
 
 		return mavInsert;
 	}
+
+	/**
+	 * 商品検索処理
+	 * @param back
+	 * @param select
+	 * @param mavSelect
+	 * @return 
+	 */
+	@RequestMapping(value="/selectProduct", method=RequestMethod.POST)
+	public ModelAndView selectProduct(@RequestParam String productNum, String back,
+			String select, ModelAndView mavSelect) {
+
+		// メイン画面へ戻る
+		if (null != back && !back.isEmpty()) {
+			mavSelect.setViewName("Menu");
+			return mavSelect;
+		}
+
+		// 商品番号で商品検索
+		ProductList productList = service.selectProduct(productNum);
+		mavSelect.setViewName("UpdateData");
+		mavSelect.addObject("productDto",productList);
+		return mavSelect;
+	}
+	
+	/**
+	 * 更新処理
+	 * @param unitPrice
+	 * @param stockQuantit
+	 * @param back
+	 * @param update
+	 * @param mavUpdate
+	 * @return
+	 */
+	@RequestMapping(value="/updateProduct", method=RequestMethod.POST)
+	public ModelAndView updateProduct(@RequestParam String unitPrice,
+			String stockQuantit, String productNum, String back, String update, ModelAndView mavUpdate) {
+
+		System.out.println(productNum);
+		
+		// メイン画面へ戻る
+		if (null != back && !back.isEmpty()) {
+			mavUpdate.setViewName("Menu");
+			return mavUpdate;
+		}
+
+		// 更新処理
+		service.updateProductService(productNum, unitPrice, stockQuantit);
+		
+		// 一覧画面へ遷移
+		mavUpdate = sendAction("一覧", mavUpdate);
+		return mavUpdate;
+		
+	}
+
 }

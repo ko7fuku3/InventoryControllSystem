@@ -51,10 +51,45 @@ public interface ProductListRepository extends JpaRepository<ProductList, Intege
 	void saveProductMst(@Param("productNum") String productNum, @Param("productName") String productName,
 						@Param("unit_price") int unit_price);
 	
+	/**
+	 * 商品在庫登録
+	 * @param productNum
+	 * @param stock_quantit
+	 */
 	@Modifying
 	@Query(value="INSERT INTO stock_product "
 			+ "(product_num, stock_quantit, modify) "
 			+ "VALUES "
 			+ "(:productNum, :stock_quantit, NOW())", nativeQuery = true)
 	void saveStockProduct(@Param("productNum") String productNum, @Param("stock_quantit") int stock_quantit);
+	
+	/**
+	 * 商品番号で商品検索
+	 * @param productNum 商品番号
+	 * @return 検索結果
+	 */
+	@Query(value = "SELECT mst.id,"
+			+"stk.product_num,"
+			+"mst.product_name,"
+			+"mst.unit_price,"
+			+"stk.stock_quantit,"
+			+"mst.unit_price * stk.stock_quantit as 'total_amount' "
+			+"FROM stock_product stk "
+			+ "LEFT JOIN product_mst mst "
+			+ "ON stk.product_num = mst.product_num "
+			+ "WHERE mst.product_num = :productNum",
+			nativeQuery = true)
+	ProductList findProduct(@Param("productNum")String productNum);
+	
+	@Modifying
+	@Query(value="UPDATE product_mst mst "
+			+ "LEFT JOIN stock_product stk "
+			+ "ON mst.product_num = stk.product_num "
+			+ "SET mst.unit_price = :unitPrice, "
+			+ "stk.stock_quantit = :stockQuantit, "
+			+ "stk.modify = NOW() "
+			+ "WHERE mst.product_num = :productNum ", nativeQuery = true)
+	void updateProduct(@Param("productNum") String productNum, @Param("unitPrice") int unitPrice,
+			@Param("stockQuantit") int stockQuantit);
+
 }

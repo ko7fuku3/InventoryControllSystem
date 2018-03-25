@@ -6,9 +6,15 @@
 <title>在庫管理　更新</title>
 </head>
 <body>
-	<article id="login">
-		<form method="post" action="/">
-		<p>更新画面</p>
+	<article id="update">
+		<form method="post" action="/selectProduct">
+			<p>商品検索画面</p>
+			<p>商品番号</p>
+			<input class="textBox" type="text" name="productNum" />
+			<div class="lineBtn">
+				<input type="submit" id="backBtn" name="back" value="戻る" />
+				<input type="submit" id="insertBtn" name="select" value="検索" />
+			</div>
 		</form>
 	</article>
 </body>

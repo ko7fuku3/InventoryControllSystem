@@ -22,7 +22,7 @@ input {
 	background-color: #ffffff;
 }
 
-#insert {
+#insert, #update {
 	margin: auto;
 	margin-top: 100px;
 	width: 300px;
@@ -165,4 +165,8 @@ tbody.scrollBody {
 .btnBack {
 	width: 60px;
 	height: 60px;
+}
+
+.lineBtn {
+	display: inline-block;
 }

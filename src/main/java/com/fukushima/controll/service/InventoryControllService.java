@@ -49,7 +49,37 @@ public class InventoryControllService {
 		productListRepository.saveProductMst(productNum, productName, unit_price);
 	}
 
+	/**
+	 * 商品在庫登録
+	 * @param productNum 商品名
+	 * @param stock_quantit 単価
+	 */
 	public void saveStockProduct(String productNum, int stock_quantit) {
 		productListRepository.saveStockProduct(productNum, stock_quantit);
+	}
+
+	/**
+	 * 商品番号で商品検索
+	 * @param productNum 商品番号
+	 * @return 検索結果
+	 */
+	public ProductList selectProduct(String productNum) {
+		return productListRepository.findProduct(productNum);
+	}
+	
+	/**
+	 * 更新処理
+	 * @param productNum 商品番号
+	 * @param unitPrice 単価
+	 * @param stockQuantit 在庫数
+	 */
+	public void updateProductService(String productNum, String unitPrice, String stockQuantit) {
+		
+		// 単価を数値に変換
+		int intUnitPrice = Integer.parseInt(unitPrice);
+		// 在庫数を数値に変換
+		int intStockQuantit = Integer.parseInt(stockQuantit);
+		
+		productListRepository.updateProduct(productNum, intUnitPrice, intStockQuantit);
 	}
 }
