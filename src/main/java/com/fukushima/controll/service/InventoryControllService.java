@@ -82,4 +82,12 @@ public class InventoryControllService {
 		
 		productListRepository.updateProduct(productNum, intUnitPrice, intStockQuantit);
 	}
+	
+	/**
+	 * 削除処理
+	 * @param productNum
+	 */
+	public void deleteProductService(String productNum) {
+		productListRepository.deleteProduct(productNum);
+	}
 }

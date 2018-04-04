@@ -167,6 +167,10 @@ public class InvController {
 
 		// 商品在庫登録
 		service.saveStockProduct(list.getProductNum(), list.getStockQuantit());
+		
+		// 一覧画面へ遷移
+		mavInsert = sendAction("一覧", mavInsert);
+
 
 		return mavInsert;
 	}
@@ -200,7 +204,7 @@ public class InvController {
 	 * @param unitPrice
 	 * @param stockQuantit
 	 * @param back
-	 * @param update
+	 * @param updat
 	 * @param mavUpdate
 	 * @return
 	 */
@@ -208,8 +212,6 @@ public class InvController {
 	public ModelAndView updateProduct(@RequestParam String unitPrice,
 			String stockQuantit, String productNum, String back, String update, ModelAndView mavUpdate) {
 
-		System.out.println(productNum);
-		
 		// メイン画面へ戻る
 		if (null != back && !back.isEmpty()) {
 			mavUpdate.setViewName("Menu");
@@ -223,6 +225,33 @@ public class InvController {
 		mavUpdate = sendAction("一覧", mavUpdate);
 		return mavUpdate;
 		
+	}
+	
+	/**
+	 * 削除処理
+	 * @param back
+	 * @param productNum
+	 * @param delete
+	 * @param mavDelete
+	 * @return
+	 */
+	@RequestMapping(value="/deleteProduct", method=RequestMethod.POST)
+	public ModelAndView deleteProduct(@RequestParam(name = "back", required = false) String back,
+			String productNum, String delete, ModelAndView mavDelete) {
+		
+		// メイン画面へ戻る
+		if (null != back && !back.isEmpty()) {
+			mavDelete.setViewName("Menu");
+			return mavDelete;
+		}
+
+		// 削除処理
+		service.deleteProductService(productNum);
+		
+		// 一覧画面へ遷移
+		mavDelete = sendAction("一覧", mavDelete);
+		
+		return mavDelete;
 	}
 
 }

@@ -81,6 +81,12 @@ public interface ProductListRepository extends JpaRepository<ProductList, Intege
 			nativeQuery = true)
 	ProductList findProduct(@Param("productNum")String productNum);
 	
+	/**
+	 * 在庫更新処理
+	 * @param productNum
+	 * @param unitPrice
+	 * @param stockQuantit
+	 */
 	@Modifying
 	@Query(value="UPDATE product_mst mst "
 			+ "LEFT JOIN stock_product stk "
@@ -91,5 +97,17 @@ public interface ProductListRepository extends JpaRepository<ProductList, Intege
 			+ "WHERE mst.product_num = :productNum ", nativeQuery = true)
 	void updateProduct(@Param("productNum") String productNum, @Param("unitPrice") int unitPrice,
 			@Param("stockQuantit") int stockQuantit);
+	
+	/**
+	 * 商品削除
+	 * @param productNum
+	 */
+	@Modifying
+	@Query(value="DELETE mst, stock "
+			+ "FROM product_mst AS mst "
+			+ "INNER JOIN stock_product AS stock "
+			+ "ON mst.product_num = stock.product_num "
+			+ "WHERE stock.product_num = :productNum", nativeQuery = true)
+	void deleteProduct(@Param("productNum") String productNum);
 
 }
